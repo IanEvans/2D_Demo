@@ -16,46 +16,62 @@ class Node;
 class Grid
 {
 public:
-	Vector3 startPosition; //top left
-	Vector3 topRightPos; 
-	Vector3 botLeftPos;
-	Vector3 botRightPos;
 
-	double squareSize;
-	double squareSizeY;
+	// ----- variables -----
+	Vector3 topLeft;
+	Vector3 topRight; 
+	Vector3 botLeft;
+	Vector3 botRight;
+
+	float squareSizeX;
+	float squareSizeY;
 
 	unsigned int rowAmount;
 	unsigned int colAmount;
 	vector<Node> nodeList;
 
-	Grid::Grid(Vector3 &_pos, double _sqS, unsigned int _rows, unsigned int _cols)
-		: startPosition(_pos), squareSize(_sqS), rowAmount(_rows), colAmount(_cols)
+	// ----- constructors -----
+	Grid::Grid(Vector3& _pos, unsigned int _rows, unsigned int _cols, float _ssX, float _ssY)
+		: topLeft(_pos), squareSizeX(_ssX), squareSizeY(_ssY), rowAmount(_rows), colAmount(_cols)
 	{
 		nodeList.reserve(rowAmount * colAmount);
 		CreateNodes();
-		AddConnections();
+		CreateManConnections(); //add bool to choose between Man and Eul?
 	}
 
-	Grid::Grid(Vector3& topLeft, Vector3& topRight, Vector3& botLeft, Vector3& botRight, unsigned int _rows, unsigned int _cols)
-		: startPosition(topLeft), topRightPos(topRight), botLeftPos(botLeft), botRightPos(botRight), rowAmount(_rows), colAmount(_cols)
+	Grid::Grid(Vector3& _topLeft, Vector3& _topRight, Vector3& _botLeft, Vector3& _botRight, unsigned int _rows, unsigned int _cols)
+		: topLeft(_topLeft), topRight(_topRight), botLeft(_botLeft), botRight(_botRight), rowAmount(_rows), colAmount(_cols)
 	{
 		nodeList.reserve(rowAmount * colAmount);
-		squareSize = double(abs(topRightPos.x - startPosition.x) / double(colAmount));
-		cout << abs(topRightPos.x - startPosition.x) << "square X :" << squareSize << endl;
-		squareSizeY = double(abs(botLeftPos.y - startPosition.y) / double(rowAmount));
-		cout << abs(botLeftPos.y - startPosition.y) << "square Y :" << squareSizeY << endl;
+
+		//these correct?
+		squareSizeX = double(abs(topRight.x - topLeft.x) / double(colAmount));
+		cout << "square X: " << squareSizeX << endl;
+		squareSizeY = double(abs(botLeft.y - topLeft.y) / double(rowAmount));
+		cout << "square Y: " << squareSizeY << endl;
 		CreateNodes();
-		AddConnections();
+		CreateManConnections();
 	}
 
-	void Render(bool, bool, bool, bool); // needed? or just draws all below in 1 function ?
-	void DrawLines(void);
+	Grid::Grid(const string& filename)
+	{
+		//take off a text file
+	}
+
+	void CreateManConnections(void);
+	void CreateEulConnections(void);
+	void CreateNodes(void);
+	void AddCover(Cover&, unsigned int);
+	void AddCover(unsigned int, bool);
+	void RemoveCover(unsigned int);
+	void Render(bool, bool, bool, bool); 
 	void DrawNodes(void);
 	void DrawConnections(void);
-	void CreateNodes(void);
-	void AddConnections(void);
-	void AddCover(unsigned int, bool);
+	void DrawGridLines(void);
 	void DrawCover(void);
+	void AddManConnectionsSingular(unsigned int);
+	void AddEulConnectionsSingular(unsigned int);
+
 };
 
 #endif
