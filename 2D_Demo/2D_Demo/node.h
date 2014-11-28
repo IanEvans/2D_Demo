@@ -23,6 +23,7 @@ public:
 	{}
 
 	void Render(void);
+	friend ostream& operator<<(ostream&, const Connection&);
 };
 
 class Node
@@ -64,6 +65,7 @@ public:
 	void Render(double squareSize, double squareSizeY);
 	void Render(void);
 	//void AddConnections(void);
+	friend ostream& operator<<(ostream&, const Node&);
 };
 
 #endif

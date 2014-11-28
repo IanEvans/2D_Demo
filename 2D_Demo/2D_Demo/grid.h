@@ -53,11 +53,9 @@ public:
 		CreateManConnections();
 	}
 
-	Grid::Grid(const string& filename)
-	{
-		//take off a text file
-	}
+	Grid::Grid(const string&);
 
+	// ----- functions -----
 	void CreateManConnections(void);
 	void CreateEulConnections(void);
 	void CreateNodes(void);
@@ -71,6 +69,8 @@ public:
 	void DrawCover(void);
 	void AddManConnectionsSingular(unsigned int);
 	void AddEulConnectionsSingular(unsigned int);
+
+	friend ostream& operator<<(ostream&, const Grid&);
 
 };
 

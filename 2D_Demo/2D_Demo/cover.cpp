@@ -8,56 +8,14 @@ void Cover::Render(void)
 		glBegin(GL_POINTS);
 			glVertex3f(position.x, position.y, position.z);
 		glEnd();
-		DrawCube(position, 0.5);
 	glPopMatrix();
 }
 
-
-void DrawSquare(double size)
+ostream& operator<<(ostream& os, const Cover& cov)
 {
-	glBegin(GL_POLYGON);
-	glVertex3f(-size, size, 0.0);
-	glVertex3f(-size, -size, 0.0);
-	glVertex3f(size, -size, 0.0);
-	glVertex3f(size, size, 0.0);
-	glEnd();
-}
-
-void Cover::DrawCube(Vector3& pos, double size)
-{
-	glPushMatrix();
-	glColor3f(1, 1, 1);
-	glTranslatef(pos.x, pos.y, pos.z);
-	//back face
-	DrawSquare(size);
-	//right side
-	glPushMatrix();
-	glTranslatef(size, 0.0, size);
-	glRotatef(90, 0, 1, 0);
-	DrawSquare(size);
-	glPopMatrix();
-	//left side
-	glPushMatrix();
-	glTranslatef(-size, 0.0, size);
-	glRotatef(90, 0, 1, 0);
-	DrawSquare(size);
-	glPopMatrix();
-	//front face
-	glPushMatrix();
-	glTranslatef(0.0, 0.0, size * 2.0);
-	DrawSquare(size);
-	glPopMatrix();
-	//top face
-	glPushMatrix();
-	glTranslatef(0.0, size, size);
-	glRotatef(90, 1, 0, 0);
-	DrawSquare(size);
-	glPopMatrix();
-	//bottom face
-	glPushMatrix();
-	glTranslatef(0.0, -size, size);
-	glRotatef(90, 1, 0, 0);
-	DrawSquare(size);
-	glPopMatrix();
-	glPopMatrix();
+	os << "Full Cover: " << cov.isFullCover << endl;
+	os << "Position: " << cov.position << endl;
+	os << "Health: " << cov.health << endl;
+	os << "Size: " << cov.size << endl;
+	return os;
 }

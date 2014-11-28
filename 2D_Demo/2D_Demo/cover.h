@@ -21,6 +21,7 @@ public:
 
 	//void ChangeSurrounding(Grid*);
 	void Render(void);
+	friend ostream& operator<<(ostream&, const Cover&);
 };
 
 #endif

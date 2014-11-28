@@ -1,9 +1,12 @@
 #include "grid.h"
 
-void Grid::DrawLines(void)
+Grid::Grid(const string& filename)
 {
-	//Draw axis lines
-	
+	//take off a text file
+}
+/*
+void Grid::DrawGridLines(void)
+{
 	glPushMatrix();
 		glColor3f(1.0, 1.0, 1.0);
 	for (int i = 0; i < rowAmount + 1; i++)
@@ -26,19 +29,9 @@ void Grid::DrawLines(void)
 
 	}
 	glPopMatrix();
-	
-	/*
-	//Draw border box
-	glPushMatrix();
-		glBegin(GL_LINE_LOOP);
-		glVertex3f(startPosition.x, startPosition.y, startPosition.z);
-		glVertex3f(topRightPos.x, topRightPos.y, topRightPos.z);
-		glVertex3f(botRightPos.x, botRightPos.y, botRightPos.z); 
-		glVertex3f(botLeftPos.x, botLeftPos.y, botLeftPos.z);
-		glEnd();
-	glPopMatrix();*/
-}
+}*/
 
+/*
 void Grid::DrawNodes(void)
 {
 	unsigned int total = rowAmount * colAmount;
@@ -108,8 +101,9 @@ void Grid::CreateNodes(void)
 			nodeList.push_back(newNode);
 		}
 	}
-}
+}*/
 
+/*
 void Grid::AddConnections(void)
 {
 	for (int i = 0; i < nodeList.size(); ++i)
@@ -229,4 +223,16 @@ void Grid::AddConnections(void)
 			nodeList[i].connectionList.push_back(new4);
 		}
 	}
+}
+*/
+ostream& operator<<(ostream& os, const Grid& grid)
+{
+	os << grid.topLeft << " ----- " << grid.topRight << "\n";
+	os << "\t | \t ----- \t | \t\n";
+	os << grid.botLeft << " ----- " << grid.botRight << "\n";
+	os << "grid is " << grid.rowAmount << " rows by " << grid.colAmount << " columns.\n";
+	os << "squareX: " << grid.squareSizeX << "\t squareY: " << grid.squareSizeY << "\n";
+
+
+	return os;
 }
